@@ -23,7 +23,7 @@ Then it groups customers into actionable risk tiers:
 
 ---
 
-## 📊 Dataset Overview
+## 📊 Dataset Overview (Synthetic dataset)
 
 | Item              | Details                                      |
 |-------------------|----------------------------------------------|
