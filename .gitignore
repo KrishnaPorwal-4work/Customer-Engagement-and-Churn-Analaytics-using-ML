@@ -6,8 +6,10 @@
 # Include only your main files
 !1_Customer_churn .ipynb
 !1_streamlit.py
-!1_Customer_churn_pipeline.pkl
 !ecommerce_customer_churn_dataset.csv
 
 # Exclude folders
 anaconda_projects/
+
+*.pkl
+*.pickle
