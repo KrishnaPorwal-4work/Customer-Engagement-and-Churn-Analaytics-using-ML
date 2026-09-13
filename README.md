@@ -2,7 +2,7 @@
 
 **Predict which customers are likely to leave — and take action before they do.**
 
-This project builds an end-to-end machine learning system that predicts customer churn for an e-commerce / subscription platform.  
+This project builds an end-to-end machine learning system that predicts customer churn for an e-commerce platform.  
 It not only predicts churn, but also segments customers into **High / Medium / Low risk** groups so marketing and customer-success teams can act on the results.
 
 ---
