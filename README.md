@@ -1,65 +1,92 @@
-# Customer Churn Prediction System
+# 🛒 E-Commerce Customer Churn Prediction
 
-## Overview
-A machine learning solution for predicting customer churn in e-commerce platforms. This project analyzes behavioral, demographic, and transactional data to identify at-risk customers and segment them into actionable risk tiers for targeted retention strategies.
+**Predict which customers are likely to leave — and take action before they do.**
 
-## Dataset
-- **50,000 customers** from global e-commerce/subscription platform
-- **25 features** including demographics, engagement metrics, purchase behavior, and financial indicators
-- **Target Variable**: Binary churn indicator (0 = Retained, 1 = Churned)
+This project builds an end-to-end machine learning system that predicts customer churn for an e-commerce / subscription platform.  
+It not only predicts churn, but also segments customers into **High / Medium / Low risk** groups so marketing and customer-success teams can act on the results.
 
-## Project Workflow
+---
 
-### 1. Data Cleaning
-- Handle missing values (mode for categorical, median for numerical)
-- Outlier detection using 1st-99th percentile clipping
-- Data validation and duplicate removal
+## 📌 What This Project Does
 
-### 2. Exploratory Data Analysis (EDA)
-- Feature correlations with churn
-- Behavioral pattern visualization
-- Geographic and demographic insights
+Given a customer’s demographics, engagement behavior, purchase history, and service interactions, the model answers:
 
-### 3. Feature Engineering
-- Behavioral ratios (Recency Ratio, Value Per Purchase)
-- Engagement metrics (Session Engagement, Platform Stickiness)
-- Loyalty indicators (Loyalty Velocity)
-- Log transformations for skewed distributions
+> **“How likely is this customer to churn?”**
 
-### 4. Feature Preprocessing
-- One-Hot Encoding for categorical variables
-- StandardScaler normalization
-- 80-20 train-test split with stratification
+Then it groups customers into actionable risk tiers:
 
-### 5. Model Development
-Trained and compared 7 algorithms:
-- Logistic Regression
-- K-Nearest Neighbors (KNN)
-- Naive Bayes
-- Support Vector Machine (SVM)
-- Decision Tree
-- Random Forest
-- **XGBoost** (Best performer)
+| Risk Level     | Churn Probability | Suggested Action                          |
+|----------------|-------------------|-------------------------------------------|
+| 🔴 High Risk   | ≥ 0.60            | Immediate personal outreach + offers      |
+| 🟡 Medium Risk | 0.35 – 0.60       | Automated re-engagement campaigns         |
+| 🟢 Low Risk    | < 0.35            | Standard engagement & loyalty programs    |
 
-### 6. Hyperparameter Optimization
-- RandomizedSearchCV with 5-fold cross-validation
-- Optimized XGBoost parameters for maximum ROC-AUC
+---
 
-### 7. Risk Segmentation
-Customers classified into 3 risk tiers:
-- **High Risk** (≥0.60): Immediate retention intervention
-- **Medium Risk** (0.35-0.60): Automated re-engagement
-- **Low Risk** (<0.35): Standard engagement
+## 📊 Dataset Overview
 
-## Model Performance (XGBoost at 0.35 Threshold)
+| Item              | Details                                      |
+|-------------------|----------------------------------------------|
+| Records           | 50,000 customers                             |
+| Features          | 25 columns                                   |
+| Target            | `Churned` (0 = Active, 1 = Churned)          |
+| Overall Churn Rate| ~28.9%                                       |
+| Data Types        | Numerical + Categorical                      |
+| Missing Values    | Present in several columns                   |
 
-| Metric | Train | Test |
-|--------|-------|------|
-| Accuracy | 94.08% | 91.81% |
-| Precision | 91.48% | 86.64% |
-| Recall | 87.66% | 84.71% |
-| F1-Score | 89.53% | 85.66% |
-| ROC-AUC | 97.13% | 92.89% |
+### Feature Categories
+
+- **Demographics** → Age, Gender, Country, City, Membership Years  
+- **Engagement** → Login Frequency, Session Duration, Pages/Session, Cart Abandonment, Wishlist, Email Open Rate, Mobile App Usage, Social Media Score  
+- **Purchase Behavior** → Total Purchases, Average Order Value, Days Since Last Purchase, Discount Usage, Return Rate, Payment Diversity  
+- **Customer Service** → Service Calls, Product Reviews Written, Lifetime Value  
+- **Financial & Status** → Credit Balance, Signup Quarter, Churned  
+
+---
+
+## 🛠️ Project Workflow
+
+1. **Data Loading & Inspection** – shape, dtypes, missing values, duplicates  
+2. **Exploratory Data Analysis** – distributions, correlations, churn patterns  
+3. **Data Cleaning** – handle missing values and anomalies  
+4. **Feature Engineering** – encode categorical variables, scale numerical features  
+5. **Model Training** – train 7 different algorithms  
+6. **Model Comparison** – select the best performing model  
+7. **Hyperparameter Tuning** – optimize XGBoost  
+8. **Threshold Optimization** – improve recall for churn detection  
+9. **Risk Segmentation** – convert probabilities into business-ready segments  
+10. **Model Persistence** – save the full pipeline for future use  
+
+---
+
+## 🏆 Model Performance
+
+| Model                        | Accuracy | Precision | Recall  | F1-Score | ROC-AUC |
+|------------------------------|----------|-----------|---------|----------|---------|
+| Logistic Regression          | 78.96%   | 70.06%    | 47.51%  | 56.62%   | 80.68%  |
+| K-Nearest Neighbors          | 77.82%   | 68.54%    | 42.95%  | 52.81%   | 76.33%  |
+| Naive Bayes                  | 68.47%   | 46.69%    | 64.40%  | 54.14%   | 72.08%  |
+| Support Vector Machine       | 85.51%   | 83.99%    | 61.58%  | 71.06%   | 89.33%  |
+| Decision Tree                | 88.21%   | 88.36%    | 68.20%  | 76.98%   | 90.39%  |
+| Random Forest                | 87.22%   | 90.37%    | 62.42%  | 73.84%   | 91.41%  |
+| **XGBoost (Selected)**       | **91.71%** | **90.89%** | **79.24%** | **84.67%** | **92.69%** |
+
+### Final Tuned XGBoost (after threshold optimization)
+
+| Metric     | Score   |
+|------------|---------|
+| Accuracy   | 91.81%  |
+| Precision  | 86.64%  |
+| Recall     | 84.71%  |
+| F1-Score   | 85.66%  |
+| ROC-AUC    | 92.89%  |
+
+**Why XGBoost?**  
+It delivered the best balance of accuracy, recall (important for catching churners), and ROC-AUC among all models tested.
+
+---
+
+## 🚀 How to Run This Project
 
 ## Installation
 
@@ -71,7 +98,7 @@ pip install pandas numpy scikit-learn xgboost streamlit matplotlib seaborn
 ### Clone Repository
 ```bash
 git clone <repository-url>
-cd ML_PROJECTS
+cd <Navigate to the project folder>
 ```
 
 ## Usage
@@ -85,55 +112,6 @@ jupyter notebook 1_Customer_churn.ipynb
 ```bash
 streamlit run 1_streamlit.py
 ```
-
-Or use the batch file:
-```bash
-./run_streamlit.bat
-```
-
-## Files Description
-
-| File | Description |
-|------|-------------|
-| `1_Customer_churn.ipynb` | Complete ML pipeline with code and visualizations |
-| `1_streamlit.py` | Interactive web app for real-time churn predictions |
-| `ecommerce_customer_churn_dataset.csv` | Raw dataset (50K customer records) |
-| `run_streamlit.bat` | Batch script to launch Streamlit app |
-| `.gitignore` | Git ignore configuration |
-
-## Key Insights
-
-- **Login Frequency & Session Duration** are strong retention indicators
-- **Cart Abandonment Rate** is a critical churn predictor
-- **Days Since Last Purchase** (Recency) indicates engagement
-- **Customer Service Interactions** correlate with satisfaction
-- **Geographic variations** in churn rates suggest regional factors
-
-## Business Applications
-
-✅ Identify high-risk customers for proactive outreach  
-✅ Segment customers for targeted retention campaigns  
-✅ Optimize resource allocation for support teams  
-✅ Early warning system for churn indicators  
-✅ Improve customer lifetime value predictions  
-
-## Technologies Used
-
-- **Python 3.x**
-- **Pandas & NumPy** - Data manipulation
-- **Scikit-Learn** - ML algorithms and preprocessing
-- **XGBoost** - Gradient boosting classifier
-- **Matplotlib & Seaborn** - Data visualization
-- **Streamlit** - Interactive web application
-- **Jupyter** - Interactive development
-
-## Model Training Notes
-
-The trained model is saved locally after running the notebook. To regenerate:
-1. Open `1_Customer_churn.ipynb`
-2. Run all cells
-3. Uncomment the model saving code at the end
-4. The model will be saved as `1_Customer_churn_pipeline.pkl`
 
 ## Future Enhancements
 
